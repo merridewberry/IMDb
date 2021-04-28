@@ -1,0 +1,4 @@
+.//input[@value='feature']#.//input[@value='tv_movie']#.//input[@value='tv_series']
+.//input[@value='action']#.//input[@value='adventure']#.//input[@value='animation']
+".//option[contains(., 'Canada')]"#".//option[contains(., 'Taiwan')]"
+.//*[@id='adult']#.//*[@id='adult|include']
