@@ -39,21 +39,6 @@ public class FilteredSearch extends Driver {
     @FindBy(xpath = ".//span[@id='navbar-search-category-select-contents']/ul/a/span[text()='Keywords']/parent::a")
     WebElement filterKeywords;
 
-    @FindBy(xpath = ".//div[@id='findSubHeader' and contains(., 'All Titles')]")
-    WebElement filteredByTitleResult;
-
-    @FindBy(xpath = ".//div[@id='findSubHeader' and contains(., 'TV Episode Titles')]")
-    WebElement filteredByTvEpisodesResult;
-
-    @FindBy(xpath = ".//div[@id='findSubHeader' and contains(., 'All Names')]")
-    WebElement filteredByCelebsResult;
-
-    @FindBy(xpath = ".//div[@id='findSubHeader' and contains(., 'All Companies')]")
-    WebElement filteredByCompaniesResult;
-
-    @FindBy(xpath = ".//div[@id='findSubHeader' and contains(., 'All Keywords')]")
-    WebElement filteredByKeywordsResult;
-
     @FindBy(xpath = ".//a[text()='Hannah John-Kamen']")
     List<WebElement> hannahJohnKamen;
 
@@ -176,35 +161,4 @@ public class FilteredSearch extends Driver {
         Assertions.assertTrue(johnKeyword.size() > 0);
         return this;
     }
-
-    @Step(value = "Check if corresponding message is displayed after clicking the search button with 'Keyword' filter")
-    public FilteredSearch checkFilteredByKeywords() {
-        Assertions.assertTrue(filteredByKeywordsResult.isDisplayed());
-        return this;
-    }
-
-    @Step(value = "Check if corresponding message is displayed after clicking the search button with 'Companies' filter")
-    public FilteredSearch checkFilteredByCompanies() {
-        Assertions.assertTrue(filteredByCompaniesResult.isDisplayed());
-        return this;
-    }
-
-    @Step(value = "Check if corresponding message is displayed after clicking the search button with 'TV Episodes' filter")
-    public FilteredSearch checkFilteredByTvEpisodes() {
-        Assertions.assertTrue(filteredByTvEpisodesResult.isDisplayed());
-        return this;
-    }
-
-    @Step(value = "Check if corresponding message is displayed after clicking the search button with 'Celebs' filter")
-    public FilteredSearch checkFilteredByCelebs() {
-        Assertions.assertTrue(filteredByCelebsResult.isDisplayed());
-        return this;
-    }
-
-    @Step(value = "Check if corresponding message is displayed after clicking the search button with 'Title' filter")
-    public FilteredSearch checkFilteredByTitle() {
-        Assertions.assertTrue(filteredByTitleResult.isDisplayed());
-        return this;
-    }
-
 }

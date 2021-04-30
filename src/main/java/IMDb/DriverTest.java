@@ -14,6 +14,7 @@ import org.openqa.selenium.logging.LogType;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -23,12 +24,13 @@ public abstract class DriverTest {
 
     public static WebDriver driver;
     public static Actions builder;
+    private static String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
-//    @BeforeAll
-//    public static void setUp() {
-//        WebDriverManager.chromedriver().setup();
-//    }
 
+    /* I can see why it may be viable to restart driver before each test, but IMDb is just to laggy and slow,
+    and I don't have patience for that.
+    Also right now I wrote tests only for search and I don't see how cookies or cache can interfere with test results
+    in this case. */
     @BeforeAll
     public void prepareTest() {
         WebDriverManager.chromedriver().setup();
@@ -60,12 +62,12 @@ public abstract class DriverTest {
     }
 
     private void writeLog(List<LogEntry> allLogRows) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt", true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter("browserLogs/log" + timestamp + ".txt", true));
         List<String> logMessages = allLogRows.stream()
-                .map(logRow -> logRow.getMessage())
+                .map(LogEntry::getMessage)
                 .collect(Collectors.toList());
-        for (int i = 0; i < logMessages.size(); i++) {
-            writer.append(logMessages.get(i));
+        for (String logMessage : logMessages) {
+            writer.append(logMessage);
             writer.append("\n");
         }
         writer.append("\n\n\n");

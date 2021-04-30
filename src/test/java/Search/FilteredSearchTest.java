@@ -67,7 +67,7 @@ public class FilteredSearchTest extends DriverTest {
                 .filterByTitle()
                 .inputQuery(QUERY_FOR_FILTERED_SEARCH)
                 .clickSearchButton()
-                .checkFilteredByTitle()
+                .checkCompanies()
                 .checkJohnWick();
     }
 

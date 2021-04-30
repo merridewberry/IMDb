@@ -8,9 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import static IMDb.Values.ADVANCED_SEARCH_URL;
-
 import java.io.*;
 import java.util.*;
 
@@ -24,6 +22,8 @@ public class AdvancedTitleSearch extends Driver {
     public WebElement searchButton;
 
     private Map<Integer, List<String>> params = makeMap();
+
+    private File pairsCsv = new File("src/test/resources/Pairs.csv");
 
     @Step(value =
             "Fill in search filters with following data (by xpath): title type '{titleType}', genre '{genre}'," +
@@ -49,6 +49,7 @@ public class AdvancedTitleSearch extends Driver {
     }
 
     private Map<Integer, List<String>> makeMap() throws IOException {
+        AdvancedTitleSearchCsvMaker.makeCsv();
         Map<Integer, List<String>> parameters = new HashMap<>();
         File file = new File("src/test/resources/AdvSearch.csv");
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -68,8 +69,7 @@ public class AdvancedTitleSearch extends Driver {
     }
 
     public void makePairCsv() {
-        File file = new File("src/test/resources/Pairs.csv");
-        file.delete();
+        pairsCsv.delete();
         PairwiseGenerator<Integer, String> gen = new PairwiseGenerator<>(params);
         gen.stream().forEach(line -> {
             try {
@@ -81,11 +81,12 @@ public class AdvancedTitleSearch extends Driver {
     }
 
     private void write(List<String> pw) throws IOException {
-        File file = new File("src/test/resources/Pairs.csv");
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(pairsCsv, true));
         for (int i = 0; i < pw.size(); i++) {
             writer.append(pw.get(i));
-            writer.append(",");
+            if (i < pw.size() - 1) {
+                writer.append(",");
+            }
         }
         writer.append("\n");
         writer.close();
