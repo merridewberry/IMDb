@@ -1,0 +1,9 @@
+.idea
+.idea/*
+target
+target/*
+*.iml
+allure-results
+allure-results/*
+browserLogs
+browserLogs/*
